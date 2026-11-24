@@ -1,0 +1,55 @@
+Initialized ClrProfiler
+CodeReloadManager initialized
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+ preferred device: Apple M4 (high power)
+Metal devices available: 1
+0: Apple M4 (high power)
+Using device Apple M4 (high power)
+Initialize engine version: 7000.0.0a20 (f4e960bd2f88)
+[EntityIdStore] init: VM path (explicit commit), pageSize=16384, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path /Users/jonas/projects/CheckStructLayout/Build/Assembly-CSharp-Editor.csproj.app/Contents/Resources/Data/UnitySubsystems
+GfxDevice: creating device client; kGfxThreadingModeThreaded
+Initializing Metal device caps: Apple M4
+Mac GPU Family: 2
+Apple GPU Family: 9
+MSL Version: 3.0
+Has Float MSAA: 1
+Has Float Filtering: 1
+ReadWrite Texture Tier: 2
+Begin MonoManager ReloadAssembly
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Metal RecreateSurface[0x75390ce100]: surface size 1920x1080
+UnloadTime: 2.309416 ms
+--- Running Test Managed with managed-created bodies: ---
+Unity[0]: Size: 56, BaseAddress: 4702031104, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Unity[1]: Size: 56, BaseAddress: 4702031160, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Test [0]: Size: 56, BaseAddress: 4702031216, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Test [1]: Size: 56, BaseAddress: 4702031272, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+--- Running Test Burst with Burst-created bodies: ---
+Unity[0]: Size: 56, BaseAddress: 4702029088, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Unity[1]: Size: 56, BaseAddress: 4702029144, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Test [0]: Size: 56, BaseAddress: 4702030544, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Test [1]: Size: 56, BaseAddress: 4702030600, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+--- Running Test Managed with Burst-created bodies: ---
+Unity[0]: Size: 56, BaseAddress: 4702029088, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Unity[1]: Size: 56, BaseAddress: 4702029144, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Test [0]: Size: 56, BaseAddress: 4702030544, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+Test [1]: Size: 56, BaseAddress: 4702030600, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: False
+--- Running Test Burst with managed-created bodies: ---
+Unity[0]: Size: 56, BaseAddress: 4702031104, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Unity[1]: Size: 56, BaseAddress: 4702031160, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Test [0]: Size: 56, BaseAddress: 4702031216, OffsetFromArray: 0, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+Test [1]: Size: 56, BaseAddress: 4702031272, OffsetFromArray: 56, ColliderFieldOffset: 0, ScaleFieldOffset: 48, ScaleValue: 5, is Burst: True
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+CodeReloadManager destroyed

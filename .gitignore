@@ -8,3 +8,5 @@ obj
 *.csproj
 *.sln
 *.sln.DotSettings.user
+Build
+.DS_Store

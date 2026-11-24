@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using Default;
 using Unity.Burst;
 using Unity.Collections;
@@ -32,7 +31,9 @@ public class StructSizeTest
         DoTest(bodies);
     }
 
+#if UNITY_EDITOR
     [UnityEditor.MenuItem("Test/Run All Tests")]
+#endif
     public static void RunAllTests()
     {
         var prevLogType = Application.GetStackTraceLogType(LogType.Log);
@@ -142,7 +143,7 @@ public class StructSizeTest
         LogErrorIfNoBurst();
         bodies = CreateBodies(collider);
     }
-    
+
     static Bodies CreateBodiesManaged(BlobAssetReference<Collider> collider)
     {
         LogErrorIfBurst();
