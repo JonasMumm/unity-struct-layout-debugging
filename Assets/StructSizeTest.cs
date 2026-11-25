@@ -16,6 +16,7 @@ public class StructSizeTest
     {
         public NativeArray<RigidBody> unityBodies;
         public NativeArray<RigidBodyLayoutTest> testBodies;
+        public NativeArray<RigidBodyLayoutTestExtended> testBodiesExtended;
     }
 
     static void RunTestManaged(in Bodies bodies)
@@ -92,7 +93,7 @@ public class StructSizeTest
     static unsafe void HandleTestBody(NativeArray<RigidBodyLayoutTest> bodies, int index)
     {
         ref var body = ref UnsafeUtility.ArrayElementAsRef<RigidBodyLayoutTest>(bodies.GetUnsafeReadOnlyPtr(), index);
-        var size = sizeof(RigidBody);
+        var size = sizeof(RigidBodyLayoutTest);
         var basePtr = UnsafeUtility.AddressOf(ref body);
         var colliderFieldPtr = UnsafeUtility.AddressOf(ref body.Collider);
         var scaleFieldPtr = UnsafeUtility.AddressOf(ref body.Scale);
@@ -107,6 +108,32 @@ public class StructSizeTest
 
         Debug.Log($"Test [{index}]: Size: {size}, BaseAddress: {basePtrLong}, OffsetFromArray: {offsetToArrayStart}, ColliderFieldOffset: {colliderFieldOffsetLong}, ScaleFieldOffset: {scaleFieldOffsetLong}, ScaleValue: {body.Scale}, is Burst: {isBurst}");
     }
+    
+    static unsafe void HandleTestBodyExtended(NativeArray<RigidBodyLayoutTestExtended> bodies, int index)
+    {
+        ref var body = ref UnsafeUtility.ArrayElementAsRef<RigidBodyLayoutTestExtended>(bodies.GetUnsafeReadOnlyPtr(), index);
+        var size = sizeof(RigidBodyLayoutTestExtended);
+        var basePtr = UnsafeUtility.AddressOf(ref body);
+        var colliderFieldPtr = UnsafeUtility.AddressOf(ref body.Collider);
+        var scaleFieldPtr = UnsafeUtility.AddressOf(ref body.Scale);
+        var oneWayFieldPtr = UnsafeUtility.AddressOf(ref body.OneWay);
+        var oneWayFieldLong = PtrAsLong(oneWayFieldPtr);
+        var seedFieldPtr = UnsafeUtility.AddressOf(ref body.PhysicsSeed);
+        var seedFieldLong = PtrAsLong(seedFieldPtr);
+
+        var basePtrLong = PtrAsLong(basePtr);
+        var colliderFieldPtrLong = PtrAsLong(colliderFieldPtr);
+        var scaleFieldPtrLong = PtrAsLong(scaleFieldPtr);
+        var colliderFieldOffsetLong = colliderFieldPtrLong - basePtrLong;
+        var scaleFieldOffsetLong = scaleFieldPtrLong - basePtrLong;
+        var isBurst = BurstUtils.IsBurstCompiled();
+        var offsetToArrayStart = basePtrLong - PtrAsLong(bodies.GetUnsafeReadOnlyPtr());
+
+        var oneWayFieldOffsetLong = oneWayFieldLong - basePtrLong;
+        var seedFieldOffsetLong = seedFieldLong - basePtrLong;
+        
+        Debug.Log($"TestE[{index}]: Size: {size}, BaseAddress: {basePtrLong}, OffsetFromArray: {offsetToArrayStart}, ColliderFieldOffset: {colliderFieldOffsetLong}, ScaleFieldOffset: {scaleFieldOffsetLong}, ScaleValue: {body.Scale}, is Burst: {isBurst}  OneWayFieldOffset: {oneWayFieldOffsetLong}, SeedFieldOffset: {seedFieldOffsetLong}, Seed: {body.PhysicsSeed.globalInvPriority}");
+    }
 
     static void DoTest(Bodies bodies)
     {
@@ -117,6 +144,10 @@ public class StructSizeTest
         //testBody
         HandleTestBody(bodies.testBodies, 0);
         HandleTestBody(bodies.testBodies, 1);
+        
+        //testBodyExt
+        HandleTestBodyExtended(bodies.testBodiesExtended, 0);
+        HandleTestBodyExtended(bodies.testBodiesExtended, 1);
     }
 
     static ulong PtrAsLong(IntPtr ptr)
@@ -182,16 +213,40 @@ public class StructSizeTest
             SolverType = solverType,
             Scale = scale,
         };
+        
+        var testRigidBodyExt = new RigidBodyLayoutTestExtended()
+        {
+            Collider = collider,
+            WorldFromBody = worldFromBody,
+            Entity = entity,
+            CustomTags = tags,
+            SolverType = solverType,
+            Scale = scale,
+            OneWay = new PhysicsOneWay
+            {
+                oneWayInvPriority = 1,
+                oneWayLayer = 1,
+                forceOverlayResultCreationAcrossLayers = false,
+            },
+            PhysicsSeed = new PhysicsSeed
+            {
+                playbackIndex = 1,
+                globalInvPriority = 1
+            }
+        };
 
         var bodies = new Bodies
         {
             unityBodies = new NativeArray<RigidBody>(2, Allocator.Persistent),
             testBodies = new NativeArray<RigidBodyLayoutTest>(2, Allocator.Persistent),
+            testBodiesExtended = new NativeArray<RigidBodyLayoutTestExtended>(2, Allocator.Persistent),
         };
         bodies.unityBodies[0] = unityRigidBody;
         bodies.unityBodies[1] = unityRigidBody;
         bodies.testBodies[0] = testRigidBody;
         bodies.testBodies[1] = testRigidBody;
+        bodies.testBodiesExtended[0] = testRigidBodyExt;
+        bodies.testBodiesExtended[1] = testRigidBodyExt;
 
         return bodies;
     }
